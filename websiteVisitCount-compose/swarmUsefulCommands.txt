@@ -7,10 +7,14 @@ docker swarm join --token SWMTKN-1-3bbotmlyuutg1xawuxp92jl5chioupo98oq77x7arx8ol
 docker swarm join-token manager
 
 docker stack ls                                            # List stacks or apps
-docker stack deploy -c <composefile> <appname> 		   # Run the specified Compose file
+docker stack deploy -c <composefile> <appname> 		   # Run the specified Compose file(appnameUsed: getstartedlab_web)
 docker service ls             				   # List running services associated with an app
 docker service ps <service>                 		   # List tasks associated with an app
 docker inspect <task or container>                  	   # Inspect task or container
 docker container ls -q                                     # List container IDs
 docker stack rm <appname>                           	   # Tear down an application
 docker swarm leave --force   				   # Take down a single node swarm from the manager
+docker service update --image rajakumargupta/websitevisitcount:update getstartedlab_web # Service update (point new Docker image)
+docker service rollback getstartedlab_web  	    	   # Service rollback to its config file
+docker service scale  getstartedlab_web=3		   # Scale on fly
+edit docker-compose and set scale			   # scale using config file. Need to re-deploy stack	
