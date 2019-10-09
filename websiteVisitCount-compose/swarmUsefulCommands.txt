@@ -1,0 +1,16 @@
+Swarm initialization: current node becomes a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-3bbotmlyuutg1xawuxp92jl5chioupo98oq77x7arx8ol12icf-cwn85m2ynp32004bvmynl5iun 192.168.1.2:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+docker stack ls                                            # List stacks or apps
+docker stack deploy -c <composefile> <appname>  # Run the specified Compose file
+docker service ls                 # List running services associated with an app
+docker service ps <service>                  # List tasks associated with an app
+docker inspect <task or container>                   # Inspect task or container
+docker container ls -q                                      # List container IDs
+docker stack rm <appname>                             # Tear down an application
+docker swarm leave --force      # Take down a single node swarm from the manager
