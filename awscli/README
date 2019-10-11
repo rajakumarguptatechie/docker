@@ -1,0 +1,12 @@
+This image is to use for AWS-CLI.
+
+Below variables can be exported for safe access.
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_DEFAULT_REGION
+
+Test run:
+docker run -it rajakumargupta-aws-cli:latest aws help
+
+For all other run:
+sh awsContainerSpinup.sh <ARG1> <ARG@> ...
