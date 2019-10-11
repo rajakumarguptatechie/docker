@@ -3,9 +3,9 @@ Ubuntu based apache2 webserver
 Virtual host: sampledomain.com:8080/index.html 
 
 # Simply run:
-docker run -d -p 8080:80 apache:latest
+docker run -d -p 8080:80 rajakumargupta/apache:latest
 # Run by giving a container name of your choice and map host volume for DOCUMENT_ROOT.
-docker run -d --name mywebserver -v /home/raja/docker/apache:/var/www/sampledomain.com/html -p 8080:80 apache:latest
+docker run -d --name mywebserver -v /home/raja/docker/apache:/var/www/sampledomain.com/html -p 8080:80 rajakumargupta/apache:latest
 
 # Volume could be mapped for below directories on container 
 DOCUMENT_ROOT      /var/www/sampledomain.com/html
