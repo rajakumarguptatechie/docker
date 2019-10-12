@@ -1,21 +1,7 @@
-# Official Jenkins Docker image
-
-[![Docker Stars](https://img.shields.io/docker/stars/jenkins/jenkins.svg)](https://hub.docker.com/r/jenkins/jenkins/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/jenkins/jenkins.svg)](https://hub.docker.com/r/jenkins/jenkins/)
-[![Join the chat at https://gitter.im/jenkinsci/docker](https://badges.gitter.im/jenkinsci/docker.svg)](https://gitter.im/jenkinsci/docker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-The Jenkins Continuous Integration and Delivery server [available on Docker Hub](https://hub.docker.com/r/jenkins/jenkins).
-
-This is a fully functional Jenkins server.
-[https://jenkins.io/](https://jenkins.io/).
-
-<img src="https://jenkins.io/sites/default/files/jenkins_logo.png"/>
-
-
 # Usage
 
 ```
-docker run -p 8080:8080 -p 50000:50000 rajakumargupta/jenkins:lts
+docker run -d -p 8080:8080 -p 50000:50000 --name jenkins rajakumargupta/jenkins:latest
 ```
 
 NOTE: read below the _build executors_ part for the role of the `50000` port mapping.
@@ -24,7 +10,7 @@ This will store the workspace in /var/jenkins_home. All Jenkins data lives in th
 You will probably want to make that an explicit volume so you can manage it and attach to another container for upgrades :
 
 ```
-docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home rajakumargupta/jenkins:lts
+docker run -d -p 8080:8080 -p 50000:50000 --name jenkins -v jenkins_home:/var/jenkins_home rajakumargupta/jenkins:latest
 ```
 
 this will automatically create a 'jenkins_home' [docker volume](https://docs.docker.com/storage/volumes/) on the host machine, that will survive the container stop/restart/deletion.
@@ -32,7 +18,7 @@ this will automatically create a 'jenkins_home' [docker volume](https://docs.doc
 NOTE: Avoid using a [bind mount](https://docs.docker.com/storage/bind-mounts/) from a folder on the host machine into `/var/jenkins_home`, as this might result in file permission issues (the user used inside the container might not have rights to the folder on the host machine). If you _really_ need to bind mount jenkins_home, ensure that the directory on the host is accessible by the jenkins user inside the container (jenkins user - uid 1000) or use `-u some_other_user` parameter with `docker run`.
 
 ```
-docker run -d -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 rajakumargupta/jenkins:lts
+docker run -d -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 rajakumargupta/jenkins:latest
 ```
 
 this will run Jenkins in detached mode with port forwarding and volume added. You can access logs with command 'docker logs CONTAINER_ID' in order to check first login token. ID of container will be returned from output of command above.
@@ -62,7 +48,7 @@ Jenkins.instance.setNumExecutors(5)
 and `Dockerfile`
 
 ```
-FROM rajakumargupta/jenkins:lts
+FROM rajakumargupta/jenkins:latest
 COPY executors.groovy /usr/share/jenkins/ref/init.groovy.d/executors.groovy
 ```
 
@@ -75,30 +61,6 @@ But if you want to attach build slave servers **through JNLP (Java Web Start)**:
 
 If you are only using [SSH slaves](https://wiki.jenkins-ci.org/display/JENKINS/SSH+Slaves+plugin), then you do **NOT** need to put that port mapping.
 
-# Passing JVM parameters
-
-You might need to customize the JVM running Jenkins, typically to pass system properties ([list of props](https://wiki.jenkins.io/display/JENKINS/Features+controlled+by+system+properties)) or tweak heap memory settings. Use JAVA_OPTS environment
-variable for this purpose :
-
-```
-docker run --name myjenkins -p 8080:8080 -p 50000:50000 --env JAVA_OPTS=-Dhudson.footerURL=http://mycompany.com rajakumargupta/jenkins:lts
-```
-
-# Configuring logging
-
-Jenkins logging can be configured through a properties file and `java.util.logging.config.file` Java property.
-For example:
-
-```
-mkdir data
-cat > data/log.properties <<EOF
-handlers=java.util.logging.ConsoleHandler
-jenkins.level=FINEST
-java.util.logging.ConsoleHandler.level=FINEST
-EOF
-docker run --name myjenkins -p 8080:8080 -p 50000:50000 --env JAVA_OPTS="-Djava.util.logging.config.file=/var/jenkins_home/log.properties" -v `pwd`/data:/var/jenkins_home rajakumargupta/jenkins:lts
-```
-
 # Configuring reverse proxy
 If you want to install Jenkins behind a reverse proxy with prefix, example: mysite.com/jenkins, you need to add environment variable `JENKINS_OPTS="--prefix=/jenkins"` and then follow the below procedures to configure your reverse proxy, which will depend if you have Apache or Nginx:
 - [Apache](https://wiki.jenkins-ci.org/display/JENKINS/Running+Jenkins+behind+Apache)
@@ -108,7 +70,7 @@ If you want to install Jenkins behind a reverse proxy with prefix, example: mysi
 
 Argument you pass to docker running the jenkins image are passed to jenkins launcher, so you can run for sample:
 ```
-docker run rajakumargupta/jenkins:lts --version
+docker run rajakumargupta/jenkins:latest --version
 ```
 This will dump Jenkins version, just like when you run jenkins as an executable war.
 
@@ -117,7 +79,7 @@ define a derived jenkins image based on the official one with some customized se
 to force use of HTTPS with a certificate included in the image
 
 ```
-FROM rajakumargupta/jenkins:lts
+FROM rajakumargupta/jenkins:latest
 
 COPY https.pem /var/lib/jenkins/cert
 COPY https.key /var/lib/jenkins/pk
@@ -128,12 +90,12 @@ EXPOSE 8083
 You can also change the default slave agent port for jenkins by defining `JENKINS_SLAVE_AGENT_PORT` in a sample Dockerfile.
 
 ```
-FROM rajakumargupta/jenkins:lts
+FROM rajakumargupta/jenkins:latest
 ENV JENKINS_SLAVE_AGENT_PORT 50001
 ```
 or as a parameter to docker,
 ```
-docker run --name myjenkins -p 8080:8080 -p 50001:50001 --env JENKINS_SLAVE_AGENT_PORT=50001 rajakumargupta/jenkins:lts
+docker run --name myjenkins -p 8080:8080 -p 50001:50001 --env JENKINS_SLAVE_AGENT_PORT=50001 rajakumargupta/jenkins:latest
 ```
 
 **Note**: This environment variable will be used to set the port adding the
@@ -147,7 +109,7 @@ docker run --name myjenkins -p 8080:8080 -p 50001:50001 --env JENKINS_SLAVE_AGEN
 You can run your container as root - and install via apt-get, install as part of build steps via jenkins tool installers, or you can create your own Dockerfile to customise, for example:
 
 ```
-FROM rajakumargupta/jenkins:lts
+FROM rajakumargupta/jenkins:latest
 # if we want to install via apt
 USER root
 RUN apt-get update && apt-get install -y ruby make more-thing-here
@@ -160,7 +122,7 @@ For this purpose, use `/usr/share/jenkins/ref` as a place to define the default 
 wish the target installation to look like :
 
 ```
-FROM rajakumargupta/jenkins:lts
+FROM rajakumargupta/jenkins:latest
 COPY custom.groovy /usr/share/jenkins/ref/init.groovy.d/custom.groovy
 ```
 
@@ -228,14 +190,14 @@ In case you have changed some default paths in the image, you can modify their v
 You can run the script manually in Dockerfile:
 
 ```Dockerfile
-FROM rajakumargupta/jenkins:lts
+FROM rajakumargupta/jenkins:latest
 RUN /usr/local/bin/install-plugins.sh docker-slaves github-branch-source:1.8
 ```
 
 Furthermore it is possible to pass a file that contains this set of plugins (with or without line breaks).
 
 ```Dockerfile
-FROM rajakumargupta/jenkins:lts
+FROM rajakumargupta/jenkins:latest
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 ```
@@ -288,13 +250,3 @@ By default, plugins will be upgraded if they haven't been upgraded manually and 
 To force upgrades of plugins that have been manually upgraded, run the docker image with `-e PLUGINS_FORCE_UPGRADE=true`.
 
 The default behaviour when upgrading from a docker image that didn't write marker files is to leave existing plugins in place. If you want to upgrade existing plugins without marker you may run the docker image with `-e TRY_UPGRADE_IF_NO_MARKER=true`. Then plugins will be upgraded if the version provided by the docker image is newer.
-
-## Hacking
-
-If you wish to contribute fixes to this repository, please refer to the [dedicated documentation](HACKING.adoc).
-
-# Questions?
-
-Jump on irc.freenode.net and the #jenkins room. Ask!
-
-[system-property]: https://wiki.jenkins.io/display/JENKINS/Features+controlled+by+system+properties
