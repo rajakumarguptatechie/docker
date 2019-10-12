@@ -1,0 +1,19 @@
+					Voting App
+For this application we will use the Docker Example Voting App. This app consists of five components:
+Python webapp which lets you vote between two options
+Redis queue which collects new votes
+.NET worker which consumes votes and stores them in…
+Postgres database backed by a Docker volume
+Node.js webapp which shows the results of the voting in real time
+
+=====================================================================================================
+
+vote container based on a Python image (dockersamples/examplevotingapp_vote:before)
+result container based on a Node.js image (dockersamples/examplevotingapp_result:before)
+redis container based on a redis image, to temporarily store the data. (redis:alpine)
+.NET based worker app based on a .NET image (dockersamples/examplevotingapp_worker)
+Postgres container based on a postgres image (postgres:9.4)
+
+=====================================================================================================
+
+Visualizer to see cluser status (manomarks/visualizer)
