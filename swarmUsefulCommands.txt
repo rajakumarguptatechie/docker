@@ -1,10 +1,14 @@
 ## Swarm initialization: current node becomes a manager.
+docker swarm init                                          # Initialize swarm
+docker swarm init --autolock                               # Initialize swarm with auto-lock feature
+docker swarm update --autolock=false                       # Disable swarm auto-lock feature
 
 # To add a worker to this swarm, run the following command:
 docker swarm join --token SWMTKN-1-3bbotmlyuutg1xawuxp92jl5chioupo98oq77x7arx8ol12icf-cwn85m2ynp32004bvmynl5iun 192.168.1.2:2377
-
 # To add a manager to this swarm run below command and follow the instructions:
 docker swarm join-token manager
+# Rotate join-token for security purpose
+docker swarm join-token --rotate        
 
 docker stack ls                                            # List stacks or apps
 docker stack deploy -c <composefile> <appname> 		   # Run the specified Compose file(appnameUsed: getstartedlab_web)
@@ -18,3 +22,13 @@ docker service update --image rajakumargupta/websitevisitcount:update getstarted
 docker service rollback getstartedlab_web  	    	   # Service rollback to its config file
 docker service scale  getstartedlab_web=3		   # Scale on fly
 edit docker-compose and set scale			   # scale using config file. Need to re-deploy stack	
+docker swarm --help                                        # To see all swarm leated commands/options
+docker node --help                                         # To see all nodes leated commands/options
+docker stack --help                                        # To see all stack leated commands/options
+docker service --help                                      # To see all service leated commands/options
+docker node ls                                             # To list all nodes
+docker node promote <node-ID>                              # Promote worker to manager
+docker node demote <node-ID>                               # Demote manager to worker
+
+## Docker commands official documentation
+https://docs.docker.com/engine/reference/run

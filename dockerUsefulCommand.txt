@@ -17,3 +17,16 @@ docker login            							 # Log in this CLI session using your Docker cred
 docker tag <image> username/repository:tag 					 # Tag <image> for upload to registry
 docker push username/repository:tag      					 # Upload tagged image to registry
 docker run username/repository:tag                  				 # Run image from a registry
+docker image ls                                                                  # List all images (locally)
+docker search <image-name>                                                       # Search an image in REPO
+docker container ls                                                              # List all container
+docker volume ls                                                                 # List all volumes
+docker network ls                                                                # List all network
+docker image inspect <image-ID>                                                  # Get all info of images 
+docker container inspect <container-ID>                                          # Get all info of container  
+docker volume inspect <volume-ID>                                                # Get all info of volume 
+docker network inspect <network-ID>                                              # Get all info of network 
+
+
+## Docker commands official portal:
+https://docs.docker.com/engine/reference/run
