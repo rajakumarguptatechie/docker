@@ -26,6 +26,11 @@ docker image inspect <image-ID>                                                 
 docker container inspect <container-ID>                                          # Get all info of container  
 docker volume inspect <volume-ID>                                                # Get all info of volume 
 docker network inspect <network-ID>                                              # Get all info of network 
+docker images --format "table {{.ID}}\t{{.Repository}}\t{{.Tag}}"                # List images in tabular format having 3 columns ImageID, ImageRegistry and ImageTag
+docker images --filter "dangling=true"                                           # Filter using dangling
+docker images --filter "label=com.example.version"                               # Filter using labels
+docker images --filter "before=image1"                                           # Filter using before
+docker images --filter "since=image1"                                            # Filter using since
 
 
 ## Docker commands official portal:
