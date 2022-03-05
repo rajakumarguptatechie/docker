@@ -1,3 +1,4 @@
+## This is used for training. No official use.
 ## This app is useful to count the number of visits.
 
 port exposed: 80 (Map on any port of your choice on host)
