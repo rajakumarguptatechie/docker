@@ -1,0 +1,33 @@
+pipeline {
+    agent {
+        node {
+            label 'dockerhost'
+        }
+    }
+    stages {
+        stage('Download Docker Code From Github') { 
+            steps {
+                git branch: 'master', credentialsId: 'jenkins-github-credential', url: 'https://github.com/rajakumarguptatechie/docker.git'
+            }    
+        }
+        stage('Docker Image Build and Tag') {
+            steps {
+                sh """
+                    cd webserver
+                    docker build -t webserver:${BUILD_NUMBER} .
+                    docker tag webserver:${BUILD_NUMBER} rajakumargupta/webserver:${BUILD_NUMBER}
+                """    
+            }
+        }
+        stage('Docker Image Upload to Repository') {
+            steps {
+                sh "docker push rajakumargupta/webserver:${BUILD_NUMBER}"
+            }
+        }
+        stage('Docker Image Cleanup from Local host') {
+            steps {
+                sh "docker rmi rajakumargupta/webserver:${BUILD_NUMBER} && docker rmi webserver:${BUILD_NUMBER}"
+            }
+        }
+    }    
+}
