@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Download Docker Code From Github') { 
             steps {
-                git branch: 'master', credentialsId: 'jenkins-github-credential', url: 'https://github.com/rajakumarguptatechie/docker.git'
+                git branch: 'dev', credentialsId: 'jenkins-github-credential', url: 'https://github.com/rajakumarguptatechie/docker.git'
             }    
         }
         stage('Docker Image Build and Tag') {
