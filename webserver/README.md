@@ -1,4 +1,4 @@
-This is a simple webserver container.
+This is an Apache webserver container based upon Ubuntu base image.
 Created via Dockerfile in this repo.
 
 # To spin up container using this image, use either commands:
