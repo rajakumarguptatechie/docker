@@ -1,0 +1,17 @@
+Need => Dockerfile => DockerImage => DockerContainer
+
+Need?=google/yourself
+Dockerfie?=https://docs.docker.com/engine/reference/builder/#:~:text=A%20Dockerfile%20is%20a%20text,can%20use%20in%20a%20Dockerfile%20.
+DockerImage: docker build -t imageName:tagName
+DockerContainer: docker run -d imageName:tagName
+
+I. Dockerize Application Need:
+1. What base image(centos) for your application
+2. What packages/software needed for your desired application
+3. need application files copied inside
+
+II. Create Dockerfile (https://docs.docker.com/engine/reference/builder/#:~:text=A%20Dockerfile%20is%20a%20text,can%20use%20in%20a%20Dockerfile%20.)
+
+III. dockerImage = BaseImage(CentosOS) + Required S/M/Packges + RequiredSettings
+
+IV. DockerContainer = Running instance of dockerImage
