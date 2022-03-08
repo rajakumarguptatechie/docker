@@ -14,4 +14,10 @@ II. Create Dockerfile (https://docs.docker.com/engine/reference/builder/#:~:text
 
 III. dockerImage = BaseImage(CentosOS) + Required S/M/Packges + RequiredSettings
 
-IV. DockerContainer = Running instance of dockerImage
+IV. DockerContainer = Running instance of dockerImage + ThisLayerOf_R/W_FS
+
+# Docker Volumes
+DockerVolumes=volume,bind,tmpfs
+
+# Docker Network
+DockerNetwork=host,none,bridge,macvlan,overlay
