@@ -1,0 +1,21 @@
+Docker main Directory/Files:
+
+[ec2-user@ip-172-31-83-233 ~]$ sudo ls -ltr /var/lib/docker
+drwx------ 2 root root   6 Jun 16 06:40 runtimes
+drwx--x--- 2 root root   6 Jun 16 06:40 containers
+drwx------ 4 root root  32 Jun 16 06:40 plugins
+drwx-----x 2 root root  50 Jun 16 06:40 volumes
+drwx------ 3 root root  22 Jun 16 06:40 image
+drwx------ 2 root root   6 Jun 16 06:40 trust
+drwxr-x--- 3 root root  19 Jun 16 06:40 network
+drwx------ 2 root root   6 Jun 16 06:40 swarm
+drwx--x--- 3 root root  40 Jun 16 06:40 overlay2
+drwx--x--x 4 root root 120 Jun 16 06:40 buildkit
+drwx------ 2 root root   6 Jun 16 06:40 tmp
+
+[ec2-user@ip-172-31-83-233 ~]$ ls -ltr /etc/docker
+-rw------- 1 root root 244 Jun 16 06:40 key.json
+
+[ec2-user@ip-172-31-83-233 ~]$ ls -ltr /usr/bin/docker*
+docker                  docker-containerd-shim  dockerd                 docker-proxy
+docker-containerd       docker-ctr              docker-init             docker-runc

@@ -1,0 +1,37 @@
+docker build -t rajakumargupta/websitevisitcount:latest . 			 # Create image using this directory's Dockerfile
+docker run -p 4000:80 rajakumargupta/websitevisitcount:latest			 # Run "friendlyhello" mapping port 4000 to 80
+docker run -d --name mywebapp -p 4000:80 rajakumargupta/websitevisitcount:latest # Same thing, but in detached mode and container name of your choice
+docker container ls   			                        		 # List all running containers
+docker container ls -a           		 				 # List all containers, even those not running
+docker container stop <Container-hash>         					 # Gracefully stop the specified container
+docker container kill <Container-hash>     					 # Force shutdown of the specified container
+docker container rm <Container-hash> 			   		    	 # Remove specified container from this machine
+docker container rm $(docker container ls -a -q)    	       			 # Remove all containers
+docker logs <Container-hash>							 # See logs of container
+docker exec -it <Container-hash> /bn/bash					 # Connect to a container via running /bin/bash inside that
+docker image ls -a                           					 # List all images on this machine
+docker images                           					 # List all images on this machine
+docker image rm <image id>    				      			 # Remove specified image from this machine
+docker image rm $(docker image ls -a -q)  					 # Remove all images from this machine
+docker login            							 # Log in this CLI session using your Docker credentials
+docker tag <image> username/repository:tag 					 # Tag <image> for upload to registry
+docker push username/repository:tag      					 # Upload tagged image to registry
+docker run username/repository:tag                  				 # Run image from a registry
+docker image ls                                                                  # List all images (locally)
+docker search <image-name>                                                       # Search an image in REPO
+docker container ls                                                              # List all container
+docker volume ls                                                                 # List all volumes
+docker network ls                                                                # List all network
+docker image inspect <image-ID>                                                  # Get all info of images 
+docker container inspect <container-ID>                                          # Get all info of container  
+docker volume inspect <volume-ID>                                                # Get all info of volume 
+docker network inspect <network-ID>                                              # Get all info of network 
+docker images --format "table {{.ID}}\t{{.Repository}}\t{{.Tag}}"                # List images in tabular format having 3 columns ImageID, ImageRegistry and ImageTag
+docker images --filter "dangling=true"                                           # Filter using dangling
+docker images --filter "label=com.example.version"                               # Filter using labels
+docker images --filter "before=image1"                                           # Filter using before
+docker images --filter "since=image1"                                            # Filter using since
+
+
+## Docker commands official portal:
+https://docs.docker.com/engine/reference/run
