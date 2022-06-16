@@ -1,0 +1,16 @@
+Steps for using Docker playground:
+1. Sign up Docker hub(https://hub.docker.com/)
+2. Open Docker playground URL (https://labs.play-with-docker.com/)
+3. Pass Dockerhub credential to login Docker playground
+4. Session is allowed for 4 hours in one go
+5. you can add instances(Docker already installed)
+
+Setup lab on AWS:
+1. Open Amazon signup page(https://aws.amazon.com/)
+2. Click on 'Create Free acoount'
+3. Enter personal emailID and accounetName and click on 'verify email'
+4. YOu have to login your personal email account and click on verify link
+5. Follow next signup steps
+6. Login AWS using your credential
+7. Set up VM on AWS(How to create and access)
+
