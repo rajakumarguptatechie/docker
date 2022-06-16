@@ -22,6 +22,15 @@ vi. Launch putty to access VM remotely
 via. Pass public IP of AWS instance in session
 vib. Use .ppk key which you got in step-5 (putty=>connection=>ssh=>auth=>browse=>locate the .ppk key)
 
+Install Docker on Amazon-Linux:
+1. sudo amazon-linux-extras install docker
+2. sudo service docker start
+3. sudo usermod -a -G docker ec2-user
+4. Logout and Login
+
+Install Docker on Other Linux Systems:
+https://docs.docker.com/engine/install/centos/
+
 Download Putty/PuttyGen:
 Note: Link to doanload puttygen (https://the.earth.li/~sgtatham/putty/latest/w64/puttygen.exe)
 NOte: Link to download putty    (https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe)
