@@ -13,4 +13,15 @@ Setup lab on AWS:
 5. Follow next signup steps
 6. Login AWS using your credential
 7. Set up VM on AWS(How to create and access)
+i. Sign up for free account
+ii. Login to AWS console
+iii. Launch an instance
+iv. Download the key-pair
+v. Convert the key-pair in .ppk format using Puttygen [puttygen=>load(browse computer location where key was downloaded in step-4)=>save-private-key]
+vi. Launch putty to access VM remotely
+via. Pass public IP of AWS instance in session
+vib. Use .ppk key which you got in step-5 (putty=>connection=>ssh=>auth=>browse=>locate the .ppk key)
 
+Download Putty/PuttyGen:
+Note: Link to doanload puttygen (https://the.earth.li/~sgtatham/putty/latest/w64/puttygen.exe)
+NOte: Link to download putty    (https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe)
