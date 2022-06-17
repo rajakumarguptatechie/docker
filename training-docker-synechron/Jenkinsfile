@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+    stages {
+        stage('Download Docker Code From Github') {
+            steps {
+                git branch: 'master', url: 'https://github.com/rajakumarguptatechie/docker.git'
+            }
+        }
+        stage('Docker Image Build and Tag') {
+            steps {
+                sh """
+                    cd webserver
+                    docker build -t webserver:${BUILD_NUMBER} .
+                    docker tag webserver:${BUILD_NUMBER} rajakumargupta/webserver:${BUILD_NUMBER}
+                """
+            }
+        }
+        stage('Docker Image Upload to Repository') {
+            steps {
+                sh "docker push rajakumargupta/webserver:${BUILD_NUMBER}"
+            }
+        }
+    }
+}
