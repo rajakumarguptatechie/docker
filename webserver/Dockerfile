@@ -1,5 +1,4 @@
 FROM ubuntu:latest
-MAINTAINER Raja Kumar Gupta <rajakumargupta.techie@gmail.com>
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Kolkata
 RUN apt-get update -y && apt-get install apache2 ufw curl -y 
